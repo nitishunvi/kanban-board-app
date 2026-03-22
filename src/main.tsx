@@ -12,7 +12,10 @@ import Backlog from './pages/General/Backlog.tsx';
 import { BoardView } from './pages/Board/BoardView.tsx';
 import EditBoardView from './pages/Board/EditBoardView.tsx';
 import PageNotFound from './pages/General/404Page.tsx';
-import PhaseMovements from './pages/Board/PhaseMovements.tsx';
+import { ThemeProvider } from "styled-components";
+import { useSelector } from "react-redux";
+import { getTheme } from "./theme/Theme.ts";
+import { ThemeContextProvider } from './theme/ThemeProviderWrapper.tsx';
 
 const queryClient = new QueryClient();
 const ServerBaseUrl = import.meta.env.VITE_BASE_URL || window.location.origin;
@@ -23,6 +26,7 @@ client.setConfig({
 });
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
+    <ThemeContextProvider>
      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
          <Routes>
@@ -38,5 +42,6 @@ createRoot(document.getElementById('root') as HTMLElement).render(
           <ReactQueryDevtools initialIsOpen={false} />
         </BrowserRouter>
         </QueryClientProvider>
+      </ThemeContextProvider>
   </StrictMode>,
 )
